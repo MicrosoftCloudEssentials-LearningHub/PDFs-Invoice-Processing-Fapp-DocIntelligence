@@ -13,7 +13,7 @@ Last updated: 2024-11-26
 ----------
 
 > [!IMPORTANT]
-> This repository showcases demonstrations and scenarios using Microsoft Cloud technologies. Please note that `these demos are intended as a guide and are based on my personal experiences. For official guidance, support, or more detailed information, please refer to Microsoft's official documentation or contact Microsoft directly`: [Microsoft Sales and Support](https://support.microsoft.com/contactus?ContactUsExperienceEntryPointAssetId=S.HP.SMC-HOME)
+> This example is based on a `public network site and is intended for demonstration purposes only`. It showcases how several Azure resources can work together to achieve the desired result. Consider the section below about [Important Considerations for Production Environment](#important-considerations-for-production-environment). Please note that `these demos are intended as a guide and are based on my personal experiences. For official guidance, support, or more detailed information, please refer to Microsoft's official documentation or contact Microsoft directly`: [Microsoft Sales and Support](https://support.microsoft.com/contactus?ContactUsExperienceEntryPointAssetId=S.HP.SMC-HOME)
 
 > How to parse PDFs from an Azure Storage Account, process them using Azure Document Intelligence, and store the results in Cosmos DB. <br/> <br/>
 > 1. Upload your PDFs to an Azure Blob Storage container. <br/>
@@ -55,6 +55,7 @@ Last updated: 2024-11-26
 <details>
 <summary><b>Table of Content</b> (Click to expand)</summary>
 
+- [Important Considerations for Production Environment](#important-considerations-for-production-environment)
 - [Overview](#overview)
 - [Step 1: Set Up Your Azure Environment](#step-1-set-up-your-azure-environment)
 - [Step 2: Set Up Azure Blob Storage for PDF Ingestion](#step-2-set-up-azure-blob-storage-for-pdf-ingestion)
@@ -74,6 +75,56 @@ Last updated: 2024-11-26
   - [Configure/Validate the Environment variables](#configurevalidate-the-environment-variables)
   - [Develop the Function](#develop-the-function)
 - [Step 6: Test the solution](#step-6-test-the-solution)
+
+</details>
+
+## Important Considerations for Production Environment
+
+<details>
+  <summary>Private Network Configuration</summary>
+
+ > For enhanced security, consider configuring your Azure resources to operate within a private network. This can be achieved using Azure Virtual Network (VNet) to isolate your resources and control inbound and outbound traffic. Implementing private endpoints for services like Azure Blob Storage and Azure Functions can further secure your data by restricting access to your VNet.
+
+</details>
+
+<details>
+  <summary>Security</summary>
+
+  > Ensure that you implement appropriate security measures when deploying this solution in a production environment. This includes: <br/>
+  >
+  > - Securing Access: Use Azure Entra ID (formerly known as Azure Active Directory or Azure AD) for authentication and role-based access control (RBAC) to manage permissions. <br/>
+  > - Managing Secrets: Store sensitive information such as connection strings and API keys in Azure Key Vault. <br/>
+  > - Data Encryption: Enable encryption for data at rest and in transit to protect sensitive information.
+
+</details>
+
+<details>
+  <summary>Scalability</summary>
+
+  > While this example provides a basic setup, you may need to scale the resources based on your specific requirements. Azure services offer various scaling options to handle increased workloads. Consider using: <br/>
+  >
+  > - Auto-scaling: Configure auto-scaling for Azure Functions and other services to automatically adjust based on demand. <br/>
+  > - Load Balancing: Use Azure Load Balancer or Application Gateway to distribute traffic and ensure high availability.
+
+</details>
+
+<details>
+  <summary>Cost Management</summary>
+
+  > Monitor and manage the costs associated with your Azure resources. Use Azure Cost Management and Billing to track usage and optimize resource allocation.
+
+</details>
+
+<details>
+  <summary>Compliance</summary>
+
+  > Ensure that your deployment complies with relevant regulations and standards. Use Azure Policy to enforce compliance and governance policies across your resources.
+</details>
+
+<details>
+  <summary>Disaster Recovery</summary>
+   
+> Implement a disaster recovery plan to ensure business continuity in case of failures. Use Azure Site Recovery and backup solutions to protect your data and applications.
 
 </details>
 
