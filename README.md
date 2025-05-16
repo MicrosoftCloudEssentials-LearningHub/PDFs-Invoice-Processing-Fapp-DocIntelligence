@@ -16,12 +16,14 @@ Last updated: 2024-11-26
 > This example is based on a `public network site and is intended for demonstration purposes only`. It showcases how several Azure resources can work together to achieve the desired result. Consider the section below about [Important Considerations for Production Environment](#important-considerations-for-production-environment). Please note that `these demos are intended as a guide and are based on my personal experiences. For official guidance, support, or more detailed information, please refer to Microsoft's official documentation or contact Microsoft directly`: [Microsoft Sales and Support](https://support.microsoft.com/contactus?ContactUsExperienceEntryPointAssetId=S.HP.SMC-HOME)
 
 > How to parse PDFs from an Azure Storage Account, process them using Azure Document Intelligence, and store the results in Cosmos DB. <br/> <br/>
+>
 > 1. Upload your PDFs to an Azure Blob Storage container. <br/>
 > 2. An Azure Function is triggered by the upload, which calls the Azure Document Intelligence API to analyze the PDFs.  <br/>
 > 3. The extracted data is parsed and subsequently stored in a Cosmos DB database, ensuring a seamless and automated workflow from document upload to data storage. 
 
 > [!NOTE]
 > Advantages of Document Intelligence for organizations handling with large volumes of documents: <br/>
+>
 > - Utilizes natural language processing, computer vision, deep learning, and machine learning. <br/>
 > - Handles structured, semi-structured, and unstructured documents. <br/>
 > - Automates the extraction and transformation of data into usable formats like JSON or CSV
@@ -68,8 +70,8 @@ Last updated: 2024-11-26
 - [Step 4: Set Up Azure Document Intelligence](#step-4-set-up-azure-document-intelligence)
   - [Create Document Intelligence Resource](#create-document-intelligence-resource)
   - [Configure Models](#configure-models)
-      - [Using Prebuilt Models](#using-prebuilt-models)
-      - [Training Custom Models](#training-custom-models-optionalif-needed) (optional/if needed)
+    - [Using Prebuilt Models](#using-prebuilt-models)
+    - [Training Custom Models](#training-custom-models-optionalif-needed) (optional/if needed)
 - [Step 5: Set Up Azure Functions for Document Ingestion and Processing](#step-5-set-up-azure-functions-for-document-ingestion-and-processing)
   - [Create a Function App](#create-a-function-app)
   - [Configure/Validate the Environment variables](#configurevalidate-the-environment-variables)
@@ -163,7 +165,7 @@ Last updated: 2024-11-26
 
 ## Step 2: Set Up Azure Blob Storage for PDF Ingestion
 
-### Create a Storage Account:
+### Create a Storage Account
 
 > An `Azure Storage Account` provides a `unique namespace in Azure for your data, allowing you to store and manage various types of data such as blobs, files, queues, and tables`. It serves as the foundation for all Azure Storage services, ensuring high availability, scalability, and security for your data. <br/> <br/>
 
@@ -216,9 +218,9 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
 ## Step 3: Set Up Azure Cosmos DB
 
-### Create a Cosmos DB Account:
+### Create a Cosmos DB Account
 
-> `Azure Cosmos DB` is a globally distributed,` multi-model database service provided by Microsoft Azure`. It is designed to offer high availability, scalability, and low-latency access to data for modern applications. Unlike traditional relational databases, Cosmos DB is a `NoSQL database, meaning it can handle unstructured, semi-structured, and structured data types`. `It supports multiple data models, including document, key-value, graph, and column-family, making it versatile for various use cases.` <br/> <br/>
+> `Azure Cosmos DB` is a globally distributed,`multi-model database service provided by Microsoft Azure`. It is designed to offer high availability, scalability, and low-latency access to data for modern applications. Unlike traditional relational databases, Cosmos DB is a `NoSQL database, meaning it can handle unstructured, semi-structured, and structured data types`. `It supports multiple data models, including document, key-value, graph, and column-family, making it versatile for various use cases.` <br/> <br/>
 
 - In the Azure portal, navigate to your **Resource Group**.
 - Click **+ Create**.
@@ -268,17 +270,17 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
 - Go to the Azure Portal.
 - **Create a New Resource**:
-   - Click on `Create a resource` and search for `document intelligence`.
-   - Select `Document Intelligence` and click `Create`.
+  - Click on `Create a resource` and search for `document intelligence`.
+  - Select `Document Intelligence` and click `Create`.
 
      <img width="550" alt="image" src="https://github.com/user-attachments/assets/e8783321-9bf3-42e2-83af-4d1c555205e3">
 
 - **Configure the Resource**:
-   - **Subscription**: Select your Azure subscription.
-   - **Resource Group**: Choose an existing resource group or create a new one.
-   - **Region**: Select the region closest to your location.
-   - **Name**: Provide a unique name for your Form Recognizer resource.
-   - **Pricing Tier**: Choose the pricing tier that fits your needs (e.g., Standard S0).
+  - **Subscription**: Select your Azure subscription.
+  - **Resource Group**: Choose an existing resource group or create a new one.
+  - **Region**: Select the region closest to your location.
+  - **Name**: Provide a unique name for your Form Recognizer resource.
+  - **Pricing Tier**: Choose the pricing tier that fits your needs (e.g., Standard S0).
 - Review your settings and click `Create` to deploy the resource.
 
      <img width="550" alt="image" src="https://github.com/user-attachments/assets/08335330-e9f5-455b-be22-6b938b979d99">
@@ -286,13 +288,14 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 ### Configure Models
 
 #### Using Prebuilt Models
+
 - **Access Form Recognizer Studio**:
-   - Navigate to your Form Recognizer resource in the Azure Portal.
-   - Check your `Resource Group` if needed:
+  - Navigate to your Form Recognizer resource in the Azure Portal.
+  - Check your `Resource Group` if needed:
 
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/d3559dc5-dbcb-44e6-b56d-d097d1719576">
 
-   - Under `Overview`, click on `Go to Document Intelligence Studio`: 
+  - Under `Overview`, click on `Go to Document Intelligence Studio`: 
 
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/286545a3-574d-48d4-80de-66a58e5b5405">
 
@@ -305,22 +308,23 @@ Within the Storage Account, create a Blob Container to store your PDFs.
   <img width="550" alt="image" src="https://github.com/user-attachments/assets/f88bce37-d7f3-4312-9053-e06f0743cdb3">
 
 - **Analyze Document**:
-   - Upload your PDF document to the Form Recognizer Studio.
+  - Upload your PDF document to the Form Recognizer Studio.
      
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/575cb5d1-8e3b-4855-8f15-246ee1ea13b8">
 
-   - Click on `Run analysis`, the prebuilt model will automatically extract fields such as invoice ID, date, vendor information, line items, and totals.
+  - Click on `Run analysis`, the prebuilt model will automatically extract fields such as invoice ID, date, vendor information, line items, and totals.
 
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/483ff4a5-73d3-4dcd-b35d-766f34a648b2">
 
-   - Validate your results:
+  - Validate your results:
 
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/a945bd72-ea1c-4d33-9699-f9257a2ceffa">
 
-  #### Training Custom Models (optional/if needed):
+  #### Training Custom Models (optional/if needed)
+
 - **Prepare Training Data**:
-   - Collect a set of sample documents similar to your PDF example.
-   - Label the fields you want to extract using the [Form Recognizer Labeling Tool](https://fott-2-1.azurewebsites.net/). Click [here for more information about to use it](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/v21/try-sample-label-tool?view=doc-intel-2.1.0#prerequisites-for-training-a-custom-form-model).
+  - Collect a set of sample documents similar to your PDF example.
+  - Label the fields you want to extract using the [Form Recognizer Labeling Tool](https://fott-2-1.azurewebsites.net/). Click [here for more information about to use it](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/v21/try-sample-label-tool?view=doc-intel-2.1.0#prerequisites-for-training-a-custom-form-model).
 
         <img width="550" alt="image" src="https://github.com/user-attachments/assets/94fca855-ec1b-444c-91f0-e05de13600df">
 
@@ -329,17 +333,17 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
     <img width="550" alt="image" src="https://github.com/user-attachments/assets/16feb31b-2a0e-4060-8e57-c870240a5109">
 
-   - For this example we'll be using the system assigned identity to do that. Under `Identy` within your `Document Intelligence Account`, change the status to `On`, and click on `Save`:
+  - For this example we'll be using the system assigned identity to do that. Under `Identy` within your `Document Intelligence Account`, change the status to `On`, and click on `Save`:
 
       > A system assigned managed identity is restricted to `one per resource and is tied to the lifecycle of this resource`. `You can grant permissions to the managed identity by using Azure role-based access control (Azure RBAC). The managed identity is authenticated with Microsoft Entra ID, so you don’t have to store any credentials in code`.
 
      <img width="550" alt="image" src="https://github.com/user-attachments/assets/4be26e42-b9d4-4f04-ae5e-e8e6babd9366">
 
-   - Go to your `Storage Account`, under `Access Control (IAM)` click on `+ Add`, and then `Add role assigment`:
+  - Go to your `Storage Account`, under `Access Control (IAM)` click on `+ Add`, and then `Add role assigment`:
 
      <img width="550" alt="image" src="https://github.com/user-attachments/assets/59881d40-eb4c-4276-b3d3-d5e7dd877af0">
 
-   - Search for `Storage Blob Data Reader`, click `Next`. Then, click on `select members` and search for your `Document intelligence identity`. Finally click on `Review + assign`:
+  - Search for `Storage Blob Data Reader`, click `Next`. Then, click on `select members` and search for your `Document intelligence identity`. Finally click on `Review + assign`:
 
       <img width="550" alt="image" src="https://github.com/user-attachments/assets/e8bbe706-8ecc-41bd-a189-846e82ccef01">
 
@@ -364,15 +368,16 @@ Within the Storage Account, create a Blob Container to store your PDFs.
     <img width="550" alt="image" src="https://github.com/user-attachments/assets/8552060b-f241-4d06-9a51-98b3b2171c08">
 
 - **Test the Model**:
-   - Upload a new document to test the custom model.
-   - Verify that the model correctly extracts the desired fields.
+  - Upload a new document to test the custom model.
+  - Verify that the model correctly extracts the desired fields.
 
 ## Step 5: Set Up Azure Functions for Document Ingestion and Processing
 
 > An `Azure Function App` is a `container for hosting individual Azure Functions`. It provides the execution context for your functions, allowing you to manage, deploy, and scale them together. `Each function app can host multiple functions, which are small pieces of code that run in response to various triggers or events, such as HTTP requests, timers, or messages from other Azure services`. <br/> <br/>
 > Azure Functions are designed to be lightweight and event-driven, enabling you to build scalable and serverless applications. `You only pay for the resources your functions consume while they are running, making it a cost-effective solution for many scenarios`.
 
- ### Create a Function App
+### Create a Function App
+
 - In the Azure portal, go to your **Resource Group**.
 - Click **+ Create**.
 
@@ -437,7 +442,6 @@ Within the Storage Account, create a Blob Container to store your PDFs.
     
     <img width="550" alt="image" src="https://github.com/user-attachments/assets/4c19d70e-d525-4c15-bb0e-518f50f61b37">
     
-
 3. **Get Cosmos DB Account ID**: Run this command to get the ID of your Cosmos DB account. Record the value of the `id` property as it is required for the next step.
 
      ```powershell
@@ -489,14 +493,14 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
 - Under `Settings`, go to `Environment variables`. And `+ Add` the following variables:
 
-  -  `COSMOS_DB_ENDPOINT`: Your Cosmos DB account endpoint.
-  -  `COSMOS_DB_KEY`: Your Cosmos DB account key.
-  -  `COSMOS_DB_CONNECTION_STRING`: Your Cosmos DB connection string.
-  -  `invoicecontosostorage_STORAGE`: Your Storage Account connection string.
-  -  `FORM_RECOGNIZER_ENDPOINT`: For example: `https://<your-form-recognizer-endpoint>.cognitiveservices.azure.com/`
-  -  `FORM_RECOGNIZER_KEY`: Your Documment Intelligence Key (Form Recognizer).
-  -  `FUNCTIONS_EXTENSION_VERSION`: ~4 (Review the existence of this, if not create it)
-  -  `FUNCTIONS_NODE_BLOCK_ON_ENTRY_POINT_ERROR`: true (This setting ensures that all entry point errors are visible in your application insights logs).
+  - `COSMOS_DB_ENDPOINT`: Your Cosmos DB account endpoint.
+  - `COSMOS_DB_KEY`: Your Cosmos DB account key.
+  - `COSMOS_DB_CONNECTION_STRING`: Your Cosmos DB connection string.
+  - `invoicecontosostorage_STORAGE`: Your Storage Account connection string.
+  - `FORM_RECOGNIZER_ENDPOINT`: For example: `https://<your-form-recognizer-endpoint>.cognitiveservices.azure.com/`
+  - `FORM_RECOGNIZER_KEY`: Your Documment Intelligence Key (Form Recognizer).
+  - `FUNCTIONS_EXTENSION_VERSION`: ~4 (Review the existence of this, if not create it)
+  - `FUNCTIONS_NODE_BLOCK_ON_ENTRY_POINT_ERROR`: true (This setting ensures that all entry point errors are visible in your application insights logs).
 
       <img width="550" alt="image" src="https://github.com/user-attachments/assets/31d813e7-38ba-46ff-9e4b-d091ae02706a">
 
@@ -586,7 +590,7 @@ Within the Storage Account, create a Blob Container to store your PDFs.
    >       - It ensures the database and container exist, then inserts the extracted data. <br/>
    > 8. **Logging (process and errors)**: Throughout the process, the function logs various steps and any errors encountered for debugging and monitoring purposes.
 
-   - Update the function_app.py:
+  - Update the function_app.py:
 
       | Template Blob Trigger | Function Code updated |
       | --- | --- |
@@ -759,7 +763,7 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
       </details>
 
-   - Now, let's update the `requirements.txt`:
+  - Now, let's update the `requirements.txt`:
 
     | Template `requirements.txt` | Updated `requirements.txt` |
     | --- | --- |
@@ -772,18 +776,19 @@ Within the Storage Account, create a Blob Container to store your PDFs.
       azure-cosmos==4.3.0
       azure-identity==1.7.0
      ```
-   - Since this function has already been tested, you can deploy your code to the function app in your subscription. If you want to test, you can use run your function locally for testing.
-      - Click on the `Azure` icon.
-      - Under `workspace`, click on the `Function App` icon.
-      - Click on `Deploy to Azure`.
+
+  - Since this function has already been tested, you can deploy your code to the function app in your subscription. If you want to test, you can use run your function locally for testing.
+    - Click on the `Azure` icon.
+    - Under `workspace`, click on the `Function App` icon.
+    - Click on `Deploy to Azure`.
 
            <img width="550" alt="image" src="https://github.com/user-attachments/assets/12405c04-fa43-4f09-817d-f6879fbff035">
 
-      - Select your `subscription`, your `function app`, and accept the prompt to overwrite:
+    - Select your `subscription`, your `function app`, and accept the prompt to overwrite:
 
            <img width="550" alt="image" src="https://github.com/user-attachments/assets/1882e777-6ba0-4e18-9d7b-5937204c7217">
 
-      - After completing, you see the status in your terminal:
+    - After completing, you see the status in your terminal:
 
            <img width="550" alt="image" src="https://github.com/user-attachments/assets/aa090cfc-f5b3-4ef2-9c2d-6be4f00b83b8">
 
