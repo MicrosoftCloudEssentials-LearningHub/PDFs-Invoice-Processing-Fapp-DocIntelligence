@@ -12,6 +12,9 @@ Last updated: 2024-11-26
 
 ----------
 
+> [!IMPORTANT]
+> This repository showcases demonstrations and scenarios using Microsoft Cloud technologies. Please note that `these demos are intended as a guide and are based on my personal experiences. For official guidance, support, or more detailed information, please refer to Microsoft's official documentation or contact Microsoft directly`: [Microsoft Sales and Support](https://support.microsoft.com/contactus?ContactUsExperienceEntryPointAssetId=S.HP.SMC-HOME)
+
 > How to parse PDFs from an Azure Storage Account, process them using Azure Document Intelligence, and store the results in Cosmos DB. <br/> <br/>
 > 1. Upload your PDFs to an Azure Blob Storage container. <br/>
 > 2. An Azure Function is triggered by the upload, which calls the Azure Document Intelligence API to analyze the PDFs.  <br/>
