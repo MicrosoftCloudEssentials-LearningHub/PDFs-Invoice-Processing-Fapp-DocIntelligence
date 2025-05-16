@@ -293,11 +293,11 @@ Within the Storage Account, create a Blob Container to store your PDFs.
   - Navigate to your Form Recognizer resource in the Azure Portal.
   - Check your `Resource Group` if needed:
 
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/d3559dc5-dbcb-44e6-b56d-d097d1719576">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/d3559dc5-dbcb-44e6-b56d-d097d1719576">
 
   - Under `Overview`, click on `Go to Document Intelligence Studio`: 
 
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/286545a3-574d-48d4-80de-66a58e5b5405">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/286545a3-574d-48d4-80de-66a58e5b5405">
 
 - **Select Prebuilt Models**: Choose the prebuilt model that matches your document type (e.g., "Invoices" for your PDF example).
 
@@ -310,15 +310,15 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 - **Analyze Document**:
   - Upload your PDF document to the Form Recognizer Studio.
      
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/575cb5d1-8e3b-4855-8f15-246ee1ea13b8">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/575cb5d1-8e3b-4855-8f15-246ee1ea13b8">
 
   - Click on `Run analysis`, the prebuilt model will automatically extract fields such as invoice ID, date, vendor information, line items, and totals.
 
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/483ff4a5-73d3-4dcd-b35d-766f34a648b2">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/483ff4a5-73d3-4dcd-b35d-766f34a648b2">
 
   - Validate your results:
 
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/a945bd72-ea1c-4d33-9699-f9257a2ceffa">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/a945bd72-ea1c-4d33-9699-f9257a2ceffa">
 
   #### Training Custom Models (optional/if needed)
 
@@ -326,7 +326,7 @@ Within the Storage Account, create a Blob Container to store your PDFs.
   - Collect a set of sample documents similar to your PDF example.
   - Label the fields you want to extract using the [Form Recognizer Labeling Tool](https://fott-2-1.azurewebsites.net/). Click [here for more information about to use it](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/v21/try-sample-label-tool?view=doc-intel-2.1.0#prerequisites-for-training-a-custom-form-model).
 
-        <img width="550" alt="image" src="https://github.com/user-attachments/assets/94fca855-ec1b-444c-91f0-e05de13600df">
+      <img width="550" alt="image" src="https://github.com/user-attachments/assets/94fca855-ec1b-444c-91f0-e05de13600df">
 
 - **Upload Training Data**: Upload the labeled documents to an Azure Blob Storage container.
 - Grant the necessary role (`Storage Blob Data Reader`) to the Document Intelligence Account for the Storage Account to access the information. Otherwise, you may encounter an error like this:
