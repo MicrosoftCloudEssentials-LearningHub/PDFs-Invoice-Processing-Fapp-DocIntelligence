@@ -15,21 +15,6 @@ Last updated: 2025-05-16
 > [!IMPORTANT]
 > This example is based on a `public network site and is intended for demonstration purposes only`. It showcases how several Azure resources can work together to achieve the desired result. Consider the section below about [Important Considerations for Production Environment](#important-considerations-for-production-environment). Please note that `these demos are intended as a guide and are based on my personal experiences. For official guidance, support, or more detailed information, please refer to Microsoft's official documentation or contact Microsoft directly`: [Microsoft Sales and Support](https://support.microsoft.com/contactus?ContactUsExperienceEntryPointAssetId=S.HP.SMC-HOME)
 
-> How to parse PDFs from an Azure Storage Account, process them using Azure Document Intelligence, and store the results in Cosmos DB for further analysis. <br/> <br/>
->
-> 1. Upload your PDFs to an Azure Blob Storage container. <br/>
-> 2. An Azure Function is triggered by the upload, which calls the Azure Document Intelligence API to analyze the PDFs.  <br/>
-> 3. The extracted data is parsed and subsequently stored in a Cosmos DB database, ensuring a seamless and automated workflow from document upload to data storage. 
-
-> [!NOTE]
-> Advantages of Document Intelligence for organizations handling with large volumes of documents: <br/>
->
-> - Utilizes natural language processing, computer vision, deep learning, and machine learning. <br/>
-> - Handles structured, semi-structured, and unstructured documents. <br/>
-> - Automates the extraction and transformation of data into usable formats like JSON or CSV
-
-<img width="550" alt="image" src="https://github.com/user-attachments/assets/21ec5d04-1c9b-4273-ad98-7b46186de78e">
-
 <details>
 <summary><b>List of References</b> (Click to expand)</summary>
 
@@ -59,6 +44,8 @@ Last updated: 2025-05-16
 
 - [Important Considerations for Production Environment](#important-considerations-for-production-environment)
 - [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Where to start?](#where-to-start)
 - [Step 1: Set Up Your Azure Environment](#step-1-set-up-your-azure-environment)
 - [Step 2: Set Up Azure Blob Storage for PDF Ingestion](#step-2-set-up-azure-blob-storage-for-pdf-ingestion)
   - [Create a Storage Account:](#create-a-storage-account)
@@ -79,6 +66,24 @@ Last updated: 2025-05-16
 - [Step 6: Test the solution](#step-6-test-the-solution)
 
 </details>
+
+> How to parse PDFs from an Azure Storage Account, process them using Azure Document Intelligence, and store the results in Cosmos DB for further analysis. <br/> <br/>
+>
+> 1. Upload your PDFs to an Azure Blob Storage container. <br/>
+> 2. An Azure Function is triggered by the upload, which calls the Azure Document Intelligence API to analyze the PDFs.  <br/>
+> 3. The extracted data is parsed and subsequently stored in a Cosmos DB database, ensuring a seamless and automated workflow from document upload to data storage. 
+
+> [!NOTE]
+> Advantages of Document Intelligence for organizations handling with large volumes of documents: <br/>
+>
+> - Utilizes natural language processing, computer vision, deep learning, and machine learning. <br/>
+> - Handles structured, semi-structured, and unstructured documents. <br/>
+> - Automates the extraction and transformation of data into usable formats like JSON or CSV
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/21ec5d04-1c9b-4273-ad98-7b46186de78e" alt="Centered Image" style="border: 2px solid #4CAF50; border-radius: 5px; padding: 5px;"/>
+</div>
+
 
 ## Important Considerations for Production Environment
 
@@ -143,6 +148,23 @@ Last updated: 2025-05-16
 > [!IMPORTANT]
 > Regarding `Networking`, this example will cover `Public access configuration`, and `system-managed identity`. However, please ensure you `review your privacy requirements and adjust network and access settings as necessary for your specific case`.
 
+## Prerequisites
+
+- An `Azure subscription is required`. All other resources, including instructions for creating a Resource Group, are provided in this workshop.
+- `Contributor role assigned or any custom role that allows`: access to manage all resources, and the ability to deploy resources within subscription.
+- If you choose to use the Terraform approach, please ensure that:
+    -  [Terraform is installed on your local machine](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/install-cli#install-terraform).
+    -  [Install the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) to work with both Terraform and Azure commands.
+
+## Where to start? 
+
+This is an introductory workshop on Microsoft Fabric. Please follow as described below.
+
+- If you're choosing the `Infrastructure via Azure Portal`, please start [here](#step-1-set-up-your-azure-environment).
+- If you're choosing the `Infrastructure via Terraform` approach:
+    1. Please follow the [Terraform guide](./terraform-infrastructure/) to deploy the necessary Azure resources for the workshop.
+    2. Then, follow each [each section](#step-1-set-up-your-azure-environment) but `skip the creation of each resource`.
+       
 ## Step 1: Set Up Your Azure Environment
 
 > An Azure `Resource Group` is a `container that holds related resources for an Azure solution`.
