@@ -782,17 +782,17 @@ Within the Storage Account, create a Blob Container to store your PDFs.
     - Under `workspace`, click on the `Function App` icon.
     - Click on `Deploy to Azure`.
 
-           <img width="550" alt="image" src="https://github.com/user-attachments/assets/12405c04-fa43-4f09-817d-f6879fbff035">
+         <img width="550" alt="image" src="https://github.com/user-attachments/assets/12405c04-fa43-4f09-817d-f6879fbff035">
 
     - Select your `subscription`, your `function app`, and accept the prompt to overwrite:
 
-           <img width="550" alt="image" src="https://github.com/user-attachments/assets/1882e777-6ba0-4e18-9d7b-5937204c7217">
+         <img width="550" alt="image" src="https://github.com/user-attachments/assets/1882e777-6ba0-4e18-9d7b-5937204c7217">
 
     - After completing, you see the status in your terminal:
 
-           <img width="550" alt="image" src="https://github.com/user-attachments/assets/aa090cfc-f5b3-4ef2-9c2d-6be4f00b83b8">
+         <img width="550" alt="image" src="https://github.com/user-attachments/assets/aa090cfc-f5b3-4ef2-9c2d-6be4f00b83b8">
 
-           <img width="550" alt="image" src="https://github.com/user-attachments/assets/369ecfc7-cc31-403c-a625-bb1f6caa271c">
+         <img width="550" alt="image" src="https://github.com/user-attachments/assets/369ecfc7-cc31-403c-a625-bb1f6caa271c">
 
 > [!IMPORTANT]
 If you need further assistance with the code, please click [here to view all the function code](./src/).
