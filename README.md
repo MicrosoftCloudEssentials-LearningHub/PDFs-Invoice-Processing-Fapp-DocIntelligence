@@ -1,4 +1,4 @@
-# Demo: Automated PDF Invoice Processing (full-code approach)
+# Demo: Automated PDF Invoice Processing with Doc Intelligence (full-code approach)
 
 `Azure Storage + Document Intelligence + Function App +  Cosmos DB`
 
