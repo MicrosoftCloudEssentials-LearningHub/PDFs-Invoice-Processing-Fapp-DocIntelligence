@@ -595,7 +595,7 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
 - Now we need to update the function code to extract data from PDFs and store it in Cosmos DB, use this an example:
 
-   > 1. **PDF Upload**: A PDF is uploaded to the Azure Blob Storage container named `pdfinvoices`.
+   > 1. **PDF Upload**: A PDF is uploaded to the Azure Blob Storage container.
    > 2. **Trigger Azure Function**: The upload triggers the Azure Function `BlobTriggerContosoPDFInvoicesDocIntelligence`.
    > 3. **Initialize Clients**: Sets up connections to Document Intelligence and Cosmos DB. <br/>
    >       - The function initializes the `DocumentAnalysisClient` to interact with Azure Document Intelligence. <br/>
