@@ -52,3 +52,18 @@ variable "form_recognizer_name" {
   description = "The name of the Form Recognizer resource."
   type        = string
 }
+
+variable "cosmosdb_sqldb_name" {
+  description = "The name of the Cosmos DB SQL database to be created."
+  default     = "outputdb"
+}
+
+variable "sql_container_name" {
+  description = "The name of the Cosmos DB SQL container to be created within the database."
+  default     = "outputcvscontainer"
+}
+
+variable "throughput" {
+  description = "The throughput (RU/s) to be allocated to the Cosmos DB SQL database or container."
+  default     = 400
+}
