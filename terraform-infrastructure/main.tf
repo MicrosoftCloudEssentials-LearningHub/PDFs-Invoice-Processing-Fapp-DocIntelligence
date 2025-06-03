@@ -61,6 +61,10 @@ resource "azurerm_linux_function_app" "function_app" {
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   site_config {
     # Other configurations can go here
   }
@@ -70,6 +74,44 @@ resource "azurerm_linux_function_app" "function_app" {
   provisioner "local-exec" {
     command = "echo Function App: ${self.name}"
   }
+}
+
+# Assign Storage Blob Data Contributor role
+resource "azurerm_role_assignment" "blob_data_contributor" {
+  scope                = azurerm_storage_account.storage.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_storage_account.storage
+  ]
+
+}
+
+# Assign Storage File Data SMB Share Contributor role
+resource "azurerm_role_assignment" "file_data_smb_share_contributor" {
+  scope                = azurerm_storage_account.storage.id
+  role_definition_name = "Storage File Data SMB Share Contributor"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_storage_account.storage
+  ]
+}
+
+# Assign Storage Blob Data Reader role
+resource "azurerm_role_assignment" "blob_data_reader" {
+  scope                = azurerm_storage_account.storage.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_storage_account.storage # Replace with the actual resource name
+  ]
 }
 
 
@@ -157,6 +199,103 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
   depends_on = [azurerm_resource_group.rg]
 }
 
+# Cosmos DB SQL Database
+resource "azurerm_cosmosdb_sql_database" "main" {
+  name                = var.cosmosdb_sqldb_name
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmosdb.name
+}
+
+resource "azurerm_cosmosdb_sql_container" "outputcvscontainer" {
+  name                = var.sql_container_name
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmosdb.name
+  database_name       = azurerm_cosmosdb_sql_database.main.name
+  throughput          = var.throughput
+  partition_key_paths   = ["/definition/id"]
+  partition_key_version = 1
+
+  indexing_policy {
+    indexing_mode = "consistent"
+
+    included_path {
+      path = "/*"
+    }
+
+    included_path {
+      path = "/included/?"
+    }
+
+    excluded_path {
+      path = "/excluded/?"
+    }
+  }
+
+  unique_key {
+    paths = ["/definition/idlong", "/definition/idshort"]
+  }
+}
+
+# Cosmos DB Operator
+resource "azurerm_role_assignment" "cosmosdb_operator" {
+  scope                = azurerm_cosmosdb_account.cosmosdb.id
+  role_definition_name = "Cosmos DB Operator"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
+# DocumentDB Account Contributor
+resource "azurerm_role_assignment" "documentdb_contributor" {
+  scope                = azurerm_cosmosdb_account.cosmosdb.id
+  role_definition_name = "DocumentDB Account Contributor"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
+# Azure AI Administrator
+resource "azurerm_role_assignment" "azure_ai_admin" {
+  scope                = azurerm_cosmosdb_account.cosmosdb.id
+  role_definition_name = "Azure AI Administrator"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
+# Cosmos DB Account Reader Role
+resource "azurerm_role_assignment" "cosmosdb_reader" {
+  scope                = azurerm_cosmosdb_account.cosmosdb.id
+  role_definition_name = "Cosmos DB Account Reader Role"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
+# Contributor
+resource "azurerm_role_assignment" "contributor" {
+  scope                = azurerm_cosmosdb_account.cosmosdb.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
 # Azure Form Recognizer (Document Intelligence)
 resource "azurerm_cognitive_account" "form_recognizer" {
   name                = var.form_recognizer_name
@@ -172,3 +311,24 @@ resource "azurerm_cognitive_account" "form_recognizer" {
     command = "echo Form Recognizer: ${self.name}"
   }
 }
+
+# We need to assign custom or built-in Cosmos DB SQL roles 
+# (like Cosmos DB Built-in Data Reader, etc.) at the data plane level, 
+# which is not currently supported directly in Terraform as of now.
+# Workaround: Use null_resource with local-exec integrating the CLI command into 
+# Terraform using a null_resource as follow:
+locals {
+  cosmosdb_role_assignment_id = uuid()
+}
+
+resource "null_resource" "cosmosdb_sql_role_assignment" {
+  provisioner "local-exec" {
+    command = "az cosmosdb sql role assignment create --resource-group ${azurerm_resource_group.rg.name} --account-name ${azurerm_cosmosdb_account.cosmosdb.name} --role-definition-id /subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${azurerm_resource_group.rg.name}/providers/Microsoft.DocumentDB/databaseAccounts/${azurerm_cosmosdb_account.cosmosdb.name}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002 --principal-id ${azurerm_linux_function_app.function_app.identity[0].principal_id} --scope ${azurerm_cosmosdb_account.cosmosdb.id} --role-assignment-id ${local.cosmosdb_role_assignment_id}"
+  }
+
+  depends_on = [
+    azurerm_linux_function_app.function_app,
+    azurerm_cosmosdb_account.cosmosdb
+  ]
+}
+
