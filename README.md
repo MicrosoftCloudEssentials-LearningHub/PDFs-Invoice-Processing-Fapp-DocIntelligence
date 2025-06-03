@@ -160,7 +160,7 @@ Last updated: 2025-05-16
 
 This is an introductory workshop on Microsoft Fabric. Please follow as described below.
 
-- If you're choosing the `Infrastructure via Azure Portal`, please start [here](#step-1-set-up-your-azure-environment).
+- If you're choosing the `Infrastructure via Azure Portal`, please start [here with Set Up Your Azure Environment](#step-1-set-up-your-azure-environment) section.
 - If you're choosing the `Infrastructure via Terraform` approach:
     1. Please follow the [Terraform guide](./terraform-infrastructure/) to deploy the necessary Azure resources for the workshop.
     2. Then, follow each [each section](#step-1-set-up-your-azure-environment) but `skip the creation of each resource`.

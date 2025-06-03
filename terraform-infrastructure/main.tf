@@ -331,3 +331,4 @@ resource "null_resource" "cosmosdb_sql_role_assignment" {
     azurerm_cosmosdb_account.cosmosdb
   ]
 }
+

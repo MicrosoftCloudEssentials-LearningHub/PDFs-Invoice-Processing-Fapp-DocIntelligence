@@ -67,3 +67,4 @@ variable "throughput" {
   description = "The throughput (RU/s) to be allocated to the Cosmos DB SQL database or container."
   default     = 400
 }
+
