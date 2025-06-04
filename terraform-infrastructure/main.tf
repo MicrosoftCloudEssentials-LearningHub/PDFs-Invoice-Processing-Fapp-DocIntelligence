@@ -84,6 +84,9 @@ resource "azurerm_linux_function_app" "function_app" {
 
   site_config {
     # Other configurations can go here
+    application_stack {
+      python_version = "3.10"
+    }
   }
 
   depends_on = [azurerm_service_plan.asp]
@@ -224,11 +227,11 @@ resource "azurerm_cosmosdb_sql_database" "main" {
 }
 
 resource "azurerm_cosmosdb_sql_container" "outputcvscontainer" {
-  name                = var.sql_container_name
-  resource_group_name = azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.cosmosdb.name
-  database_name       = azurerm_cosmosdb_sql_database.main.name
-  throughput          = var.throughput
+  name                  = var.sql_container_name
+  resource_group_name   = azurerm_resource_group.rg.name
+  account_name          = azurerm_cosmosdb_account.cosmosdb.name
+  database_name         = azurerm_cosmosdb_sql_database.main.name
+  throughput            = var.throughput
   partition_key_paths   = ["/definition/id"]
   partition_key_version = 1
 
