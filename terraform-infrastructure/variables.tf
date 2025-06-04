@@ -60,12 +60,12 @@ variable "form_recognizer_name" {
 
 variable "cosmosdb_sqldb_name" {
   description = "The name of the Cosmos DB SQL database to be created."
-  default     = "outputdb"
+  default     = "ContosoDBDocIntellig"
 }
 
 variable "sql_container_name" {
   description = "The name of the Cosmos DB SQL container to be created within the database."
-  default     = "outputcvscontainer"
+  default     = "Invoices"
 }
 
 variable "throughput" {
