@@ -8,6 +8,7 @@ resource "azurerm_resource_group" "rg" {
     command = "echo Resource Group: ${self.name}"
   }
 }
+
 # Storage Account
 resource "azurerm_storage_account" "storage" {
   name                     = var.storage_account_name
@@ -52,14 +53,30 @@ resource "azurerm_storage_container" "output_container" {
   }
 }
 
+# Storage Account
+resource "azurerm_storage_account" "runtime" {
+  name                     = var.storage_account_name_runtime
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  depends_on = [azurerm_resource_group.rg]
+
+  # Output the storage account name
+  provisioner "local-exec" {
+    command = "echo Storage Account: ${self.name}"
+  }
+}
+
 # Linux Function App
 resource "azurerm_linux_function_app" "function_app" {
   name                       = var.function_app_name
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
   service_plan_id            = azurerm_service_plan.asp.id
-  storage_account_name       = azurerm_storage_account.storage.name
-  storage_account_access_key = azurerm_storage_account.storage.primary_access_key
+  storage_account_name       = azurerm_storage_account.runtime.name
+  storage_account_access_key = azurerm_storage_account.runtime.primary_access_key
 
   identity {
     type = "SystemAssigned"
@@ -78,27 +95,27 @@ resource "azurerm_linux_function_app" "function_app" {
 
 # Assign Storage Blob Data Contributor role
 resource "azurerm_role_assignment" "blob_data_contributor" {
-  scope                = azurerm_storage_account.storage.id
+  scope                = azurerm_storage_account.runtime.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
 
 
   depends_on = [
     azurerm_linux_function_app.function_app,
-    azurerm_storage_account.storage
+    azurerm_storage_account.runtime
   ]
 
 }
 
 # Assign Storage File Data SMB Share Contributor role
 resource "azurerm_role_assignment" "file_data_smb_share_contributor" {
-  scope                = azurerm_storage_account.storage.id
+  scope                = azurerm_storage_account.runtime.id
   role_definition_name = "Storage File Data SMB Share Contributor"
   principal_id         = azurerm_linux_function_app.function_app.identity[0].principal_id
 
   depends_on = [
     azurerm_linux_function_app.function_app,
-    azurerm_storage_account.storage
+    azurerm_storage_account.runtime
   ]
 }
 
