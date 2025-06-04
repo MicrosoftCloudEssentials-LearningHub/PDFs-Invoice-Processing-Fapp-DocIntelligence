@@ -19,6 +19,11 @@ variable "storage_account_name" {
   type        = string
 }
 
+variable "storage_account_name_runtime" {
+  description = "The name of the storage account runtime (Function App Storage)"
+  type        = string
+}
+
 variable "function_app_name" {
   description = "The name of the Linux Function App."
   type        = string
