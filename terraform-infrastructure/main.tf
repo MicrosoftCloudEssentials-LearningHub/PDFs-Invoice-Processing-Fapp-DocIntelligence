@@ -27,7 +27,7 @@ resource "azurerm_storage_account" "storage" {
 
 # Blob Container for Input Files
 resource "azurerm_storage_container" "input_container" {
-  name                  = "input"
+  name                  = "pdfinvoices"
   storage_account_id    = azurerm_storage_account.storage.id
   container_access_type = "private"
 
@@ -205,7 +205,7 @@ resource "azurerm_cosmosdb_sql_container" "outputcvscontainer" {
   account_name          = azurerm_cosmosdb_account.cosmosdb.name
   database_name         = azurerm_cosmosdb_sql_database.main.name
   throughput            = var.throughput
-  partition_key_paths   = ["/definition/id"]
+  partition_key_paths   = ["/transactionId"]
   partition_key_version = 1
 
   indexing_policy {
