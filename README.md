@@ -514,16 +514,16 @@ Within the Storage Account, create a Blob Container to store your PDFs.
 
 - Under `Settings`, go to `Environment variables`. And `+ Add` the following variables:
 
-  - `COSMOS_DB_ENDPOINT`: Your Cosmos DB account endpoint.
-  - `COSMOS_DB_KEY`: Your Cosmos DB account key.
-  - `COSMOS_DB_CONNECTION_STRING`: Your Cosmos DB connection string.
-  - `invoicecontosostorage_STORAGE`: Your Storage Account connection string.
-  - `FORM_RECOGNIZER_ENDPOINT`: For example: `https://<your-form-recognizer-endpoint>.cognitiveservices.azure.com/`
-  - `FORM_RECOGNIZER_KEY`: Your Documment Intelligence Key (Form Recognizer).
-  - `FUNCTIONS_EXTENSION_VERSION`: `~4` (Review the existence of this, if not create it)
-  - `WEBSITE_RUN_FROM_PACKAGE`: `1` (Review the existence of this, if not create it)
-  - `FUNCTIONS_WORKER_RUNTIME`: `python` (Review the existence of this, if not create it)
-  - `FUNCTIONS_NODE_BLOCK_ON_ENTRY_POINT_ERROR`: `true` (This setting ensures that all entry point errors are visible in your application insights logs).
+  - `COSMOS_DB_ENDPOINT`: Your Cosmos DB account endpoint 🡢 `Review the existence of this, if not create it`
+  - `COSMOS_DB_KEY`: Your Cosmos DB account key 🡢 `Review the existence of this, if not create it`
+  - `COSMOS_DB_CONNECTION_STRING`: Your Cosmos DB connection string 🡢 `Review the existence of this, if not create it`
+  - `invoicecontosostorage_STORAGE`: Your Storage Account connection string 🡢 `Review the existence of this, if not create it`
+  - `FORM_RECOGNIZER_ENDPOINT`: For example: `https://<your-form-recognizer-endpoint>.cognitiveservices.azure.com/` 🡢 `Review the existence of this, if not create it`
+  - `FORM_RECOGNIZER_KEY`: Your Documment Intelligence Key (Form Recognizer). 🡢
+  - `FUNCTIONS_EXTENSION_VERSION`: `~4` 🡢 `Review the existence of this, if not create it`
+  - `WEBSITE_RUN_FROM_PACKAGE`: `1` 🡢 `Review the existence of this, if not create it`
+  - `FUNCTIONS_WORKER_RUNTIME`: `python` 🡢 `Review the existence of this, if not create it`
+  - `FUNCTIONS_NODE_BLOCK_ON_ENTRY_POINT_ERROR`: `true` (This setting ensures that all entry point errors are visible in your application insights logs). 🡢 `Review the existence of this, if not create it`
 
       <img width="550" alt="image" src="https://github.com/user-attachments/assets/31d813e7-38ba-46ff-9e4b-d091ae02706a">
 
