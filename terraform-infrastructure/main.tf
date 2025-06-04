@@ -89,7 +89,17 @@ resource "azurerm_linux_function_app" "function_app" {
     }
   }
 
-  depends_on = [azurerm_service_plan.asp]
+  app_settings = {
+    "FUNCTIONS_WORKER_RUNTIME"              = "python"
+    "WEBSITE_RUN_FROM_PACKAGE"              = "1"
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.appinsights.instrumentation_key
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.appinsights.connection_string
+  }
+
+  depends_on = [
+    azurerm_service_plan.asp,
+    azurerm_application_insights.appinsights
+  ]
 
   provisioner "local-exec" {
     command = "echo Function App: ${self.name}"
