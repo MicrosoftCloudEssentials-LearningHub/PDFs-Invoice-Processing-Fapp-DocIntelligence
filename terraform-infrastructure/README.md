@@ -1,4 +1,4 @@
-# Azure Infrastructure Terraform Templates
+# Azure Infrastructure Terraform Template
 
 Costa Rica
 
@@ -10,11 +10,11 @@ Last updated: 2025-05-19
 ----------
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/4277a12d-ce5a-4b29-896f-b1b4f058672f" alt="Centered Image" style="border: 2px solid #4CAF50; border-radius: 5px; padding: 5px;"/>
+  <img src="https://github.com/user-attachments/assets/1806405c-9336-4f6c-9e60-4b5509e47a93" alt="Centered Image" style="border: 2px solid #4CAF50; border-radius: 5px; padding: 5px;"/>
 </div>
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/75ed020c-1edd-4155-889d-9e1633a468fd" alt="Centered Image" style="border: 2px solid #4CAF50; border-radius: 5px; padding: 5px;"/>
+  <img src="https://github.com/user-attachments/assets/5dee65b0-f60c-40be-b449-c6899847841d" alt="Centered Image" style="border: 2px solid #4CAF50; border-radius: 5px; padding: 5px;"/>
 </div>
 
 ## Overview 
