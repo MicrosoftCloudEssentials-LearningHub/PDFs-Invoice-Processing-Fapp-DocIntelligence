@@ -69,43 +69,6 @@ resource "azurerm_storage_account" "runtime" {
   }
 }
 
-# Linux Function App
-resource "azurerm_linux_function_app" "function_app" {
-  name                       = var.function_app_name
-  location                   = azurerm_resource_group.rg.location
-  resource_group_name        = azurerm_resource_group.rg.name
-  service_plan_id            = azurerm_service_plan.asp.id
-  storage_account_name       = azurerm_storage_account.runtime.name
-  storage_account_access_key = azurerm_storage_account.runtime.primary_access_key
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  site_config {
-    # Other configurations can go here
-    application_stack {
-      python_version = "3.10"
-    }
-  }
-
-  app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME"              = "python"
-    "WEBSITE_RUN_FROM_PACKAGE"              = "1"
-    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.appinsights.instrumentation_key
-    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.appinsights.connection_string
-  }
-
-  depends_on = [
-    azurerm_service_plan.asp,
-    azurerm_application_insights.appinsights
-  ]
-
-  provisioner "local-exec" {
-    command = "echo Function App: ${self.name}"
-  }
-}
-
 # Assign Storage Blob Data Contributor role
 resource "azurerm_role_assignment" "blob_data_contributor" {
   scope                = azurerm_storage_account.runtime.id
@@ -360,4 +323,54 @@ resource "null_resource" "cosmosdb_sql_role_assignment" {
     azurerm_linux_function_app.function_app,
     azurerm_cosmosdb_account.cosmosdb
   ]
+}
+
+# Linux Function App
+resource "azurerm_linux_function_app" "function_app" {
+  name                       = var.function_app_name
+  location                   = azurerm_resource_group.rg.location
+  resource_group_name        = azurerm_resource_group.rg.name
+  service_plan_id            = azurerm_service_plan.asp.id
+  storage_account_name       = azurerm_storage_account.runtime.name
+  storage_account_access_key = azurerm_storage_account.runtime.primary_access_key
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  site_config {
+    # Other configurations can go here
+    application_stack {
+      python_version = "3.10"
+    }
+  }
+
+  app_settings = {
+    "FUNCTIONS_WORKER_RUNTIME"                  = "python"
+    "FUNCTIONS_EXTENSION_VERSION"               = "~4"
+    "FUNCTIONS_NODE_BLOCK_ON_ENTRY_POINT_ERROR" = "true"
+    "WEBSITE_RUN_FROM_PACKAGE"                  = "1"
+
+    "COSMOS_DB_ENDPOINT" = azurerm_cosmosdb_account.cosmosdb.endpoint
+    "COSMOS_DB_KEY"      = azurerm_cosmosdb_account.cosmosdb.primary_key
+
+    "invoicecontosostorage_STORAGE" = azurerm_storage_account.storage.primary_connection_string
+
+    "FORM_RECOGNIZER_ENDPOINT" = azurerm_cognitive_account.form_recognizer.endpoint
+    "FORM_RECOGNIZER_KEY"      = azurerm_cognitive_account.form_recognizer.primary_access_key
+
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.appinsights.instrumentation_key
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.appinsights.connection_string
+  }
+
+  depends_on = [
+    azurerm_service_plan.asp,
+    azurerm_application_insights.appinsights,
+    azurerm_cosmosdb_account.cosmosdb
+
+  ]
+
+  provisioner "local-exec" {
+    command = "echo Function App: ${self.name}"
+  }
 }
