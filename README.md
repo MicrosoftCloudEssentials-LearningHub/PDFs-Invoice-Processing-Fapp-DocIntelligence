@@ -479,8 +479,8 @@ Within the Storage Account, create a Blob Container to store your PDFs.
     
      <img width="750" alt="image" src="https://github.com/user-attachments/assets/f3426130-2de5-46a0-96f0-4c6e15e57975">
 
-4. **Assign the Role**: Assign the new role using `az cosmosdb sql role assignment create`. Use the previously recorded role definition ID for the `--role-definition-id` argument, the unique identifier for your identity for the `--principal-id` argument, and your account's ID for the `--scope` argument.
-  
+4. **Assign the Role**: Assign the new role using `az cosmosdb sql role assignment create`. Use the previously recorded role definition ID for the `--role-definition-id` argument, the unique identifier for your identity for the `--principal-id` argument, and your `account's ID and the Function App` for the `--scope` argument. You need to do this for both the Function App to read metadata from Cosmos DB and your ID to access and view the information.
+
      > You can extract the `principal-id`, from `Identity` of the `Function App`:
     
       <img width="550" alt="image" src="https://github.com/user-attachments/assets/b54f046f-ecc7-4434-80ce-e49a0abeca66">
@@ -500,7 +500,7 @@ Within the Storage Account, create a Blob Container to store your PDFs.
     
     <img width="550" alt="image" src="https://github.com/user-attachments/assets/5caea3b9-3e4d-4791-8376-fda4547547bd">
 
-5. **Verify Role Assignment**: Use `az cosmosdb sql role assignment list` to list all role assignments for your Azure Cosmos DB for NoSQL account. Review the output to ensure your role assignment was created.
+6. **Verify Role Assignment**: Use `az cosmosdb sql role assignment list` to list all role assignments for your Azure Cosmos DB for NoSQL account. Review the output to ensure your role assignment was created.
     
      ```powershell
      az cosmosdb sql role assignment list \
