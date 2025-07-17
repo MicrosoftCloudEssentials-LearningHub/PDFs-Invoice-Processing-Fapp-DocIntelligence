@@ -158,6 +158,7 @@ Last updated: 2025-07-17
 > In the context of Azure Function Apps, a `hosting option refers to the plan you choose to run your function app`. This choice affects how your function app is scaled, the resources available to each function app instance, and the support for advanced functionalities like virtual network connectivity and container support.
 
 > [!TIP]  
+>
 > - `Scale to Zero`: Indicates whether the service can automatically scale down to zero instances when idle.  
 >   - **IDLE** stands for:  
 >     - **I** – Inactive  
