@@ -8,7 +8,7 @@ Costa Rica
 [![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/)
 [brown9804](https://github.com/brown9804)
 
-Last updated: 2025-07-17
+Last updated: 2025-08-07
 
 ----------
 
@@ -17,7 +17,8 @@ Last updated: 2025-07-17
 
 <details>
 <summary><b>List of References</b> (Click to expand)</summary>
-  
+
+- [Solution Accelerator for AI Document Processor (ADP)](https://github.com/azure/ai-document-processor) - AI Factory
 - [Use Azure AI services with SynapseML in Microsoft Fabric](https://learn.microsoft.com/en-us/fabric/data-science/how-to-use-ai-services-with-synapseml)
 - [Plan and manage costs for Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/costs-plan-manage)
 - [Azure AI Document Intelligence documentation](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/?view=doc-intel-4.0.0)
@@ -41,7 +42,7 @@ Last updated: 2025-07-17
 - [Document Intelligence query field extraction](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/query-fields?view=doc-intel-4.0.0)
 - [What's new in Azure AI Document Intelligence](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/whats-new?view=doc-intel-4.0.0)
 - [Managed identities for Document Intelligence](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/authentication/managed-identities?view=doc-intel-4.0.0)
-  
+
 </details>
 
 <details>
